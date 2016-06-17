@@ -1,0 +1,47 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nameFirst: MyString
+  nameLast: MyString
+  nameFull: MyString
+  yearID: 1
+  setID: MyString
+  cardNo: 1
+  team: MyString
+  control: 1
+  PU: 1
+  SO: 1
+  GB: 1
+  FB: 1
+  BB: 1
+  _1B: 1
+  _2B: 1
+  _HR: 1
+  points: 1
+  IP: 1
+  hand: MyString
+  Pos: MyString
+  string: MyString
+
+two:
+  nameFirst: MyString
+  nameLast: MyString
+  nameFull: MyString
+  yearID: 1
+  setID: MyString
+  cardNo: 1
+  team: MyString
+  control: 1
+  PU: 1
+  SO: 1
+  GB: 1
+  FB: 1
+  BB: 1
+  _1B: 1
+  _2B: 1
+  _HR: 1
+  points: 1
+  IP: 1
+  hand: MyString
+  Pos: MyString
+  string: MyString

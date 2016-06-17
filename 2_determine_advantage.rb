@@ -1,3 +1,11 @@
+# x = row of the current pitcher
+# y = row of the current pitcher
+
+p = T2Pitcher.find(x)
+b = T1Batter.find(y)
+
+puts "The current pitcher is #{p.nameFull}"
+puts "The current batter is #{b.nameFull}"
 
 roll_1 = rand(1..20)
 total_control = roll_1 + p.control
@@ -16,7 +24,7 @@ end
 
 roll_2 = rand(1..20)
 
-if advantage = "pitcher"
+if advantage == "pitcher"
   if roll_2 < p.PU
     result = "PU"
   elsif roll_2 < ( p.PU + p.SO )
@@ -35,7 +43,7 @@ if advantage = "pitcher"
     result = "_HR"
   end
 
-else # advantage = "batter"
+else # advantage == "batter"
   if roll_2 < b.SO
     result = "SO"
   elsif roll_2 < ( b.SO + b.GB )
