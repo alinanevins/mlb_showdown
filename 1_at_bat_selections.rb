@@ -7,8 +7,10 @@ basestate = 1
 
 ##########
 
-
-while outs < 3
+cond1 = innings >9
+cond2 = (home_runs > visitor_runs)
+cond2 = (home_runs < visitor_runs && innings % 1 == .5 && outs = 3)
+while (cond1 && !cond2 && !cond3)
 
 # Pitching User makes selection
 
