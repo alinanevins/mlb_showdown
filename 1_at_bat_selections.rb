@@ -38,10 +38,10 @@ puts "The current batter is #{b.nameFull}"
 
 puts pitching_team + " team, your pitch.
 Choose one of the following options:
-Enter P to pitch to the batter
-Enter W to intentionally walk the batter
-		Enter R to substitute a new pitcher
-		Enter S to substitute a fielder or change your defensive alignment"
+- Select P to pitch to the batter
+- Select W to intentionally walk the batter
+- Select R to substitute a new pitcher
+- Select S to substitute a fielder or change your defensive alignment"
 		end
 	pitch_choice = gets.chomp.strip.upcase
 	if pitch_choice == "W"
@@ -49,10 +49,10 @@ Enter W to intentionally walk the batter
 	elsif pitch_choice == "R"
 		puts pitching_team + " team, you want to .
 		Choose one of the following options:
-		Enter P to pitch to the batter
-		Enter W to intentionally walk the batter
-				Enter R to substitute a new pitcher
-				Enter S to substitute a fielder or change your defensive alignment"
+		- Select P to pitch to the batter
+		- Select W to intentionally walk the batter
+		- Select R to substitute a new pitcher
+		- Select S to substitute a fielder or change your defensive alignment"
 		# restart
 	elsif pitch_choice == "S"
 		# substitute a new fielder
