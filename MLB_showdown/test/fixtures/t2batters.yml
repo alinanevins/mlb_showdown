@@ -1,0 +1,67 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nameFirst: MyString
+  nameLast: MyString
+  nameFull: MyString
+  yearID: 1
+  setID: MyString
+  cardNo: 1
+  team: MyString
+  onbase: 1
+  SO: 1
+  GB: 1
+  FB: 1
+  BB: 1
+  _1B: 1
+  _1Bplus: 1
+  _2B: 1
+  _3B: 1
+  _HR: 1
+  points: 1
+  speed: 1
+  hand: MyString
+  startingPos1: MyString
+  fielding1: 1
+  startingPos2: MyString
+  fielding2: 1
+  startingPos3: MyString
+  fielding3: 1
+  startingPos4: MyString
+  fielding4: 1
+  _TO: 1
+  xbh: 1
+  numPos: 1
+
+two:
+  nameFirst: MyString
+  nameLast: MyString
+  nameFull: MyString
+  yearID: 1
+  setID: MyString
+  cardNo: 1
+  team: MyString
+  onbase: 1
+  SO: 1
+  GB: 1
+  FB: 1
+  BB: 1
+  _1B: 1
+  _1Bplus: 1
+  _2B: 1
+  _3B: 1
+  _HR: 1
+  points: 1
+  speed: 1
+  hand: MyString
+  startingPos1: MyString
+  fielding1: 1
+  startingPos2: MyString
+  fielding2: 1
+  startingPos3: MyString
+  fielding3: 1
+  startingPos4: MyString
+  fielding4: 1
+  _TO: 1
+  xbh: 1
+  numPos: 1

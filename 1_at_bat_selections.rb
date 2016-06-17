@@ -3,7 +3,7 @@
 # Begin with home team pitching, visitors at bat
 
 outs = 0
-basestate = 1
+base_state = 1
 visitor_batter_count = 0
 home_batter_count = 0
 visitor_pitcher_selector = 1
@@ -11,9 +11,10 @@ home_pitcher_selector = 1
 
 ##########
 
-ninth_or_later = innings >9
+ninth_or_later = innings > 9
 home_ahead = (home_runs > visitor_runs)
 visitor_ahead_end_of_inning = (home_runs < visitor_runs && innings % 1 == .5 && outs = 3)
+
 while (ninth_or_later && !home_ahead && !visitor_ahead_end_of_inning)
 
 # Pitching User makes selection
@@ -77,11 +78,16 @@ Enter W to intentionally walk the batter
 		# restart
 	# edge case if they didn’t enter any of them
 
-if (pitcher_choice == “P”) && (batter_choice == "H")
-  a_roll = rand(1..20)
-  if ( roll + pitcher_control ) > batter_onbase # will reference a column
-	advantage = "pitcher"
-  b_roll = rand(1..20)
+if (pitcher_choice == "P") && (batter_choice == "H")
+  roll_1 = rand(1..20)
+  if ( roll_1 + pitcher_control ) > batter_onbase # will reference a column
+	   advantage = "pitcher"
+   else
+     advantage = "batter"
+  end
+end
+
+  roll_2 = rand(1..20)
   # enter at_bat class methods
 
 
