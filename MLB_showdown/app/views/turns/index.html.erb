@@ -1,0 +1,6 @@
+<h1>MLB Showdown Turns</h1>
+<!-- <% @inning = 1 %> -->
+<%= form_for @turn do |c| %>
+  <%= c.select :pitch_decision, [['P','P'], ['W','W'], ['R','R'], ['S','S']] %>
+  <%= c.submit %>
+<% end %>
