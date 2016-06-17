@@ -4,15 +4,36 @@
 
 outs = 0
 basestate = 1
+visitor_batter_count = 0
+home_batter_count = 0
+visitor_pitcher_selector = 1
+home_pitcher_selector = 1
 
 ##########
 
-cond1 = innings >9
-cond2 = (home_runs > visitor_runs)
-cond2 = (home_runs < visitor_runs && innings % 1 == .5 && outs = 3)
-while (cond1 && !cond2 && !cond3)
+ninth_or_later = innings >9
+home_ahead = (home_runs > visitor_runs)
+visitor_ahead_end_of_inning = (home_runs < visitor_runs && innings % 1 == .5 && outs = 3)
+while (ninth_or_later && !home_ahead && !visitor_ahead_end_of_inning)
 
 # Pitching User makes selection
+
+visitor_batter_count = 1 + visitor_batter_count % 9
+#second time through, home_batter_count = 1 + home_batter_count % 9
+
+
+if home = "team_2"
+  p = T2Pitcher.find(home_pitcher_selector)
+  b = T1Batter.find(visitor_batter_count)
+elsif home = "team_1"
+  p = T1Pitcher.find(visitor_pitcher_selector)
+  b = T2Batter.find(home_batter_count)
+end
+
+
+puts "The current pitcher is #{p.nameFull}"
+puts "The current batter is #{b.nameFull}"
+
 
 puts pitching_team + " team, your pitch.
 Choose one of the following options:
@@ -23,9 +44,14 @@ Enter W to intentionally walk the batter
 		end
 	pitch_choice = gets.chomp.strip.upcase
 	if pitch_choice == "W"
-		at_bat.walk # walk the batter
+		result = "BB"
 	elsif pitch_choice == "R"
-		# substitute a new pitcher
+		puts pitching_team + " team, you want to .
+		Choose one of the following options:
+		Enter P to pitch to the batter
+		Enter W to intentionally walk the batter
+				Enter R to substitute a new pitcher
+				Enter S to substitute a fielder or change your defensive alignment"
 		# restart
 	elsif pitch_choice == "S"
 		# substitute a new fielder
