@@ -18,7 +18,7 @@ Fred,Mcgriff,Fred Mcgriff,2000,BS,425,Devil Rays,10,2,2,1,5,6,0,1,0,3,430,10,L,1
 errors = []
 csv = CSV.parse(str, headers: true)
 csv.each do |row|
-p = T1Batter.new(nameFirst:row['nameFirst'], nameLast:row['nameLast'], nameFull:row['nameFull'], yearID:row['yearID'].to_i, setID:row['setID'], cardNo:row['cardNo'].to_i, team:row['team'], onbaseSO:row['onbaseSO'].to_i, GB:row['GB'].to_i, FB:row['FB'].to_i, BB:row['BB'].to_i, _1B:row['_1B'].to_i, _1Bplus:row['_1Bplus'].to_i, _2B:row['_2B'].to_i, _3B:row['_3B'].to_i, _HR:row['_HR'].to_i, points:row['points'].to_i, speed:row['speed'].to_i, hand:row['hand'], startingPos1:row['startingPos1'], fielding1:row['fielding1'].to_i, startingPos2:row['startingPos2'], fielding2:row['fielding2'].to_i, startingPos3:row['startingPos3'], fielding3:row['fielding3'].to_i, startingPos4:row['startingPos4'], fielding4:row['fielding4'].to_i, TO:row['TO'].to_i, xbh:row['xbh'].to_i, numPos:row['numPos'].to_i)
+p = T1Batters.new(nameFirst:row['nameFirst'], nameLast:row['nameLast'], nameFull:row['nameFull'], yearID:row['yearID'].to_i, setID:row['setID'], cardNo:row['cardNo'].to_i, team:row['team'], onbase:row['onbase'], SO:row['SO'].to_i, GB:row['GB'].to_i, FB:row['FB'].to_i, BB:row['BB'].to_i, _1B:row['_1B'].to_i, _1Bplus:row['_1Bplus'].to_i, _2B:row['_2B'].to_i, _3B:row['_3B'].to_i, _HR:row['_HR'].to_i, points:row['points'].to_i, speed:row['speed'].to_i, hand:row['hand'], startingPos1:row['startingPos1'], fielding1:row['fielding1'].to_i, startingPos2:row['startingPos2'], fielding2:row['fielding2'].to_i, startingPos3:row['startingPos3'], fielding3:row['fielding3'].to_i, startingPos4:row['startingPos4'], fielding4:row['fielding4'].to_i, TO:row['TO'].to_i, xbh:row['xbh'].to_i, numPos:row['numPos'].to_i)
 begin
 p.save
 rescue => e
