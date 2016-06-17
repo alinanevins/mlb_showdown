@@ -22,13 +22,14 @@ class GameCalculatorService
   @home_runs = 0
   @visitor_runs = 0
 
-    @turns.each do |row|
-      if @outs == 3
+    @turns.each do |row| #on each turn
+      if @outs == 3 #reset
         @base_state = 1
         @outs = 0
         @innings += 0.5
       end
-      if row.at_bat == "visitor" # team_2
+
+      if row.at_bat == "visitor" # = team_2
         if row.result == "GB"
           if @base_state == 1
         		@outs += 1
@@ -50,38 +51,101 @@ class GameCalculatorService
         	elsif @base_state == 6
         		@base_state = 2
         		@outs += 1
+            @pts_per_inning[@innings] += 1
         		@visitor_runs += 1
         		# doubleplay
         	elsif @base_state == 7
         		@base_state = 4
         		@outs += 1
+            @pts_per_inning[@innings] += 1
         		@visitor_runs += 1
         	elsif @base_state == 8
         		@base_state = 6
         		@outs += 1
+            @pts_per_inning[@innings] += 1
         		@visitor_runs += 1
         		# doubleplay
         	end
-        else
 
+        elsif row.result == "SO"
+          # copy logic from 3_at_bat_class but prepend runs with 'visitor_' and add '@pts_per_inning[@innings] += 1 ' for each run
         end
+
+      end # end row.result for visitor batting
 
           # use result to determine ending base_state
 
 
-        else #row.advantage == "pitcher"
+      elsif row.at_bat == "home" # = team 1
+        if row.result == "PU"
+          if @base_state == 1
+          		@outs += 1
+          elsif @base_state == 2
+          		@outs += 1
+          elsif @base_state == 3
+          		@outs += 1
+          elsif @base_state == 4
+          		@outs += 1
+          elsif @base_state == 5
+          		@outs += 1
+          elsif @base_state == 6
+          		@outs += 1
+          elsif @base_state == 7
+          		@outs += 1
+          elsif @base_state == 8
+          		@outs += 1
+          end
+
+        elsif row.result == "GB"
+          if @base_state == 1
+        		@outs += 1
+        	elsif @base_state == 2
+        		@outs += 1
+        		# doubleplay
+        	elsif @base_state == 3
+        		@base_state = 4
+        		@outs += 1
+        	elsif @base_state == 4
+        		@base_state = 1
+        		@outs += 1
+            @pts_per_inning[@innings] += 1
+            @home_runs += 1
+        	elsif @base_state == 5
+        		@base_state = 6
+        		@outs += 1
+        		# doubleplay
+        	elsif @base_state == 6
+        		@base_state = 2
+        		@outs += 1
+            @pts_per_inning[@innings] += 1
+            @home_runs += 1
+        		# doubleplay
+        	elsif @base_state == 7
+        		@base_state = 4
+        		@outs += 1
+            @pts_per_inning[@innings] += 1
+        		@home_runs += 1
+        	elsif @base_state == 8
+        		@base_state = 6
+        		@outs += 1
+            @pts_per_inning[@innings] += 1
+        		@home_runs += 1
+        		# doubleplay
+        	end
+
+        elsif # .... repeat
         end
 
-      else
+      end # end row.result for home advantage
 
-    end
-  end
-
-end
-
+    end # @turns.each do
+  end # def calculate
+end # class
 
 
-#determine pitcher control
+
+# this logic can be used later
+# determine pitcher control
 # if T1Pitcher.find(row.pitcher_id).control > T2Batter.find(row.batter_id).on_base
 #   advantage = "pitcher"
 # else
