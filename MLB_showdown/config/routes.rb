@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
-  root 'turns#index'
+  root 'welcome#index'
 
+  get '/rules' => 'welcome#rules'
+  get '/about' => 'welcome#about'
+  
   resources :turns
 
   # The priority is based upon order of creation: first created -> highest priority.
