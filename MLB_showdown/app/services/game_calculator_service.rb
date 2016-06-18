@@ -1,8 +1,8 @@
-In controller
-# c = GameCalculatorService.new(1)
-# c.calculate
-# c.innings 1.5
-# c.pts_per_inning {}
+# In controller
+# t = GameCalculatorService.new(g.id)
+# t.calculate
+# t.innings = 1.5
+# t.pts_per_inning {} ?
 # @turn = turn.new -> new row
 
 class GameCalculatorService
@@ -10,26 +10,26 @@ class GameCalculatorService
 
   attr_accessor :innings, :pts_per_inning
 
-  def initialize(game_id)
-    @turns = Turn.where(game_id: game_id)
+  def initialize(game_id) # pass in game id
+    @turns = Turn.where(game_id: game_id) # what does this do?
     @innings = 1.0
     @pts_per_inning = {}
   end
 
-  def calculate
+  def calculate # beginning of inning
   @base_state = 1
   @outs = 0
   @home_runs = 0
   @visitor_runs = 0
 
     @turns.each do |row| #on each turn
-      if @outs == 3 #reset
+      if @outs == 3 # reset
         @base_state = 1
         @outs = 0
         @innings += 0.5
       end
 
-      if row.at_bat == "visitor" # = team_2
+      if row.at_bat == "visitor" # team_2 is at bat
         if row.result == "GB"
           if @base_state == 1
         		@outs += 1
@@ -76,7 +76,7 @@ class GameCalculatorService
           # use result to determine ending base_state
 
 
-      elsif row.at_bat == "home" # = team 1
+      if row.at_bat == "home" # = team 1
         if row.result == "PU"
           if @base_state == 1
           		@outs += 1
@@ -132,9 +132,9 @@ class GameCalculatorService
         		@home_runs += 1
         		# doubleplay
         	end
-
-        elsif # .... repeat
         end
+        # elsif # .... repeat
+        # end
 
       end # end row.result for home advantage
 
