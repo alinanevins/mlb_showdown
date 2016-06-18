@@ -1,6 +1,31 @@
 <h1>MLB Showdown Turns</h1>
 <!-- <% @inning = 1 %> -->
-<%= form_for @turn do |c| %>
-  <%= c.select :pitch_decision, [['P','P'], ['W','W'], ['R','R'], ['S','S']] %>
-  <%= c.submit %>
+<div class="row">
+  <div class="col-sm-6">
+    <div class="card card-block">
+      <h3 class="card-title">Home Team</h3>
+      <p class="card-text"><p>Choose one of the following options:
+      <ul><li>Select P to pitch to the batter</li>
+      <li>Select W to intentionally walk the batter</li>
+      <li>Select R to substitute a new pitcher</li>
+      <li>Select S to substitute a fielder or change your defensive alignment</li><p>
+      <%= form_for @turn do |c| %>
+        <%= c.select :pitch_decision, [['P','P'], ['W','W'], ['R','R'], ['S','S']] %></p>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="card card-block">
+      <h3 class="card-title">Visiting Team</h3>
+      <p class="card-text"><p>Choose one of the following options:
+      <ul><li>Select H to attempt to hit the ball</li>
+      <li>Select S to attempt a steal</li>
+      <li>B to bunt the ball and sacrifice yourself</li>
+      <li>Select P to substitute a new batter or runner</li><p><p>
+      <%= c.select :bat_decision, [['H','H'], ['S','S'], ['B','B'], ['P','P']] %></p>
+
+    </div>
+  </div>
+
+</div>
+<p><div class="text-center"><%= c.submit "ROLL" %></div></p>
 <% end %>
