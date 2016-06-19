@@ -1,6 +1,21 @@
+<div class="container">
 <h1>Edit this turn (you cheater!)</h1>
 <%= form_for @turn do |f| %>
 <%= f.label :game_id %>: <%= f.text_field :game_id %><br />
+<%= f.label :inning %>: <%= f.text_field :inning %><br />
+<%= f.label :at_bat %>: <%= f.text_field :at_bat %><br />
+<%= f.label :base_state_id %>: <%= f.text_field :base_state_id %><br />
+
+<h3>Pitching Team</h3>
+<%= f.label :pitch_decision %>: <%= f.text_field :pitch_decision %><br />
+<%= f.label :roll_1 %>: <%= f.text_field :roll_1 %><p>
+
+<h3>Batting Team</h3>
+<%= f.label :bat_decision %>: <%= f.text_field :bat_decision %><br />
+<%= f.label :roll_2 %>: <%= f.text_field :roll_2 %><p>
+
+
 <%= f.submit %>
 <% end %>
 <%= link_to "Delete this turn", turn_path(@turn.id), method: 'delete' %>
+</div>

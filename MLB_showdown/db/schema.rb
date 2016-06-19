@@ -11,10 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160619155913) do
+ActiveRecord::Schema.define(version: 20160619182934) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "base_states", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "games", force: :cascade do |t|
     t.string   "name"
@@ -159,8 +165,11 @@ ActiveRecord::Schema.define(version: 20160619155913) do
     t.integer  "roll_2"
     t.string   "advantage"
     t.string   "result"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.integer  "base_state_id"
+    t.integer  "ending_base_state_id"
+    t.float    "inning"
   end
 
 end
