@@ -6,12 +6,18 @@ class TurnsController < ApplicationController
   def create
     turn_hash = params.delete('turn')
     a = Turn.new
+    a.game_id = turn_hash['game_id']
+    a.inning = turn_hash['inning']
     a.at_bat = turn_hash['at_bat']
+    a.base_state_id = turn_hash['base_state_id']
+    # a.base_state = turn_hash['name']
     a.bat_decision = turn_hash['bat_decision']
     a.pitch_decision = turn_hash['pitch_decision']
+    a.roll_1 = turn_hash['roll_1']
+    a.roll_2 = turn_hash['roll_2']
 
     if a.save
-      # refresh_page
+      redirect_to turns_path(a.id)
     end
 
   end

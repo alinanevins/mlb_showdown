@@ -11,7 +11,7 @@ class GamesController < ApplicationController
     a.visitor_team_user_id = game_hash['visitor_team_user_id']
 
     if a.save
-      # take you to the turns/new page?
+      # redirect_to turns/new
     end
 
   end
