@@ -1,47 +1,47 @@
 <div class="container">
-<h1>Take a turn</h1>
-<!-- <% @inning = 1 %> -->
-<%= form_for @turn do |c| %>
-Game ID: <%= c.number_field :game_id, :class => 'text_field', :step => 'integer' %></p>
-Inning:
-  <%= c.number_field :inning, :class => 'text_field', :step => 'any' %></p>
-Who is at bat?
-  <%= c.select :at_bat, [['Home','home'], ['Visitor','visitor']] %></p>
-What is the base state?
-  <%= c.select :base_state_id, [['empty bases','1'], ['runner on 1st','2'], ['runner on 2nd','3'], ['runner on 3rd','4'], ['runner on 1st and 2nd','5'], ['runner on 1st and 3rd','6'], ['runner on 2nd and 3rd','7'], ['bases loaded','8']] %> </p>
+  <h1>Take a turn</h1>
+  <!-- <% @inning = 1 %> -->
+  <%= form_for @turn do |c| %>
+  Game ID: <%= c.number_field :game_id, :class => 'text_field', :step => 'integer' %></p>
+  Inning:
+    <%= c.number_field :inning, :class => 'text_field', :step => 'any' %></p>
+  Who is at bat?
+    <%= c.select :at_bat, [['Home','home'], ['Visitor','visitor']] %></p>
+  What is the base state?
+    <%= c.select :base_state_id, [['empty bases','1'], ['runner on 1st','2'], ['runner on 2nd','3'], ['runner on 3rd','4'], ['runner on 1st and 2nd','5'], ['runner on 1st and 3rd','6'], ['runner on 2nd and 3rd','7'], ['bases loaded','8']] %> </p>
 
-<div class="row">
-  <div class="col-sm-6">
-    <div class="card card-block">
-      <h3 class="card-title">Pitching Team</h3>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="card card-block">
+        <h3 class="card-title">Pitching Team</h3>
 
-      <p class="card-text"><p>Choose one of the following options:
-      <ul><li>Select P to pitch to the batter</li>
-      <li>Select W to intentionally walk the batter</li>
-      <li>Select R to substitute a new pitcher</li>
-      <li>Select S to substitute a fielder or change your defensive alignment</li></ul><p>
-        <%= c.select :pitch_decision, [['P','P'], ['W','W'], ['R','R'], ['S','S']] %></p>
-      <p>Pitcher's roll: <%= c.number_field :roll_1, :class => 'text_field', :step => 'integer' %></p>
+        <p class="card-text"><p>Choose one of the following options:
+        <ul><li>Select P to pitch to the batter</li>
+        <li>Select W to intentionally walk the batter</li>
+        <li>Select R to substitute a new pitcher</li>
+        <li>Select S to substitute a fielder or change your defensive alignment</li></ul><p>
+          <%= c.select :pitch_decision, [['P','P'], ['W','W'], ['R','R'], ['S','S']] %></p>
+        <p>Pitcher's roll: <%= c.number_field :roll_1, :class => 'text_field', :step => 'integer' %></p>
+      </div>
     </div>
-  </div>
-  <div class="col-sm-6">
-    <div class="card card-block">
-      <h3 class="card-title">Batting Team</h3>
-      <p class="card-text"><p>Choose one of the following options:
-      <ul><li>Select H to attempt to hit the ball</li>
-      <li>Select S to attempt a steal</li>
-      <li>B to bunt the ball and sacrifice yourself</li>
-      <li>Select P to substitute a new batter or runner</li></ul><p>
-      <%= c.select :bat_decision, [['H','H'], ['S','S'], ['B','B'], ['P','P']] %></p>
-      <p>Pitcher's roll: <%= c.number_field :roll_2, :class => 'text_field', :step => 'integer' %></p>
+    <div class="col-sm-6">
+      <div class="card card-block">
+        <h3 class="card-title">Batting Team</h3>
+        <p class="card-text"><p>Choose one of the following options:
+        <ul><li>Select H to attempt to hit the ball</li>
+        <li>Select S to attempt a steal</li>
+        <li>B to bunt the ball and sacrifice yourself</li>
+        <li>Select P to substitute a new batter or runner</li></ul><p>
+        <%= c.select :bat_decision, [['H','H'], ['S','S'], ['B','B'], ['P','P']] %></p>
+        <p>Pitcher's roll: <%= c.number_field :roll_2, :class => 'text_field', :step => 'integer' %></p>
 
-      <%= c.submit "ROLL" %><% end %>
+        <%= c.submit "ROLL" %><% end %>
 
+      </div>
     </div>
-  </div>
 
-</div>
-<p>
-<!-- generate @roll_1 = rand(1..20)
-@roll_2 = rand(1..20) -->
+  </div>
+  <p>
+  <!-- generate @roll_1 = rand(1..20)
+  @roll_2 = rand(1..20) -->
 </div>
