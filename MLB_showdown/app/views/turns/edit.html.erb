@@ -1,0 +1,6 @@
+<h1>Edit this turn (you cheater!)</h1>
+<%= form_for @turn do |f| %>
+<%= f.label :game_id %>: <%= f.text_field :game_id %><br />
+<%= f.submit %>
+<% end %>
+<%= link_to "Delete this turn", turn_path(@turn.id), method: 'delete' %>
