@@ -1,0 +1,8 @@
+<h1>All Games</h1>
+<p>
+  <% @game.each do |a| %>
+    <p>Game ID: <%= a.id %>
+    <p>Name: <%= a.name %>
+    <p>Home Team User ID: <%= a.home_team_user_id %>
+    <p>Visiting Team User ID: <%= a.visitor_team_user_id %>
+  <% end %>

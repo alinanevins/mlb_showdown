@@ -26,5 +26,35 @@ class TurnsController < ApplicationController
     t.innings = 1.5
     t.pts_per_inning {}
     @turn = Turn.new
+
+  end
+
+  def edit
+    id = params[:id]
+    @turn = Turn.find(id)
+  end
+
+  def show
+    id = params[:id]
+    @turn = Turn.find(id)
+  end
+
+  def update
+    id = params['id']
+    turn_hash = params.delete('turn')
+    @turn = Turn.find(id)
+    @turn.game_id = turn_hash['game_id']
+
+
+    if @turn.save
+      redirect_to turn_path(@turn.id)
+    end
+  end
+
+  def destroy
+    id = params['id']
+    Turn.delete(id)
+    flash[:notice] = "You've deleted turn #{id}"
+    redirect_to turn_path
   end
 end
