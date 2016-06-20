@@ -24,13 +24,23 @@ class TurnsController < ApplicationController
 
   def new
     @turn = Turn.new # create new row
-    t = GameCalculatorService.new(1) # for now, stick with game 1
+    @game = Game.last || Game.new
+    t = GameCalculatorService.new(@game)
     # t = GameCalculatorService.new(g.id)
     # g = Game.new
     # g.save
-    t.calculate
+    bat_decision = params.delete("bat_decision")
+    pitch_decision = params.delete("pitch_decision")
+    @result = t.ph_combo(bat_decision, pitch_decision)
+    if @result == "calculate_advantage"
+      # t.calculate_advantage(at_bat, pitcher_id, batter_id, roll_1)
+    end
+    if @result == "calculate_result"
+      # t.calculate_result(xxxxxxx) !!!!!!
+    end
+    t.execute_result()
     t.innings = 1.5
-    t.pts_per_inning {}
+    t.pts_per_inning
     @turn = Turn.new
 
   end
