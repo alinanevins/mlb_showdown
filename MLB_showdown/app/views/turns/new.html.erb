@@ -1,7 +1,7 @@
 <div class="container">
   <h1>Take a turn</h1>
   <!-- <% @inning = 1 %> -->
-  <%= form_for @turn do |c| %>
+  <%= form_tag('/games/#{@current_game_id}/turns/new', method: :post) %> # rewrite
   Game ID: <%= c.number_field :game_id, :class => 'text_field', :step => 'integer' %></p>
   Inning:
     <%= c.number_field :inning, :class => 'text_field', :step => 'any' %></p>

@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   resources :turns
   resources :games
 
+  get 'games/:id/turns/new' => 'turns#next_turn'
+  post 'games/:id/turns/new' => 'turns#create_turn'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
