@@ -6,7 +6,7 @@ class TurnsController < ApplicationController
   def create
     turn_hash = params.delete('turn')
     a = Turn.new
-    a.game_id = turn_hash['game_id']
+    a.game_id = @current_game_id
     a.inning = turn_hash['inning']
     a.at_bat = turn_hash['at_bat']
     a.base_state_id = turn_hash['base_state_id']
@@ -15,23 +15,47 @@ class TurnsController < ApplicationController
     a.pitch_decision = turn_hash['pitch_decision']
     a.roll_1 = turn_hash['roll_1']
     a.roll_2 = turn_hash['roll_2']
+    # if @at_bat == "home"
+    #   batter_id = T1Batter.find(batter_id)
+    # else
+    #   T2Pitcher.find(pitcher_id)
 
     if a.save
-      redirect_to turns_path(a.id)
+      a = Turn.last
+      redirect_to turn_path(a.id)
     end
 
   end
 
+  def create_turn
+    binding.pry
+  end
+
+  def next_turn
+    @current_game_id = params['id']
+  end
+
+
   def new
     @turn = Turn.new # create new row
-    t = GameCalculatorService.new(1) # for now, stick with game 1
+    @game = Game.last || Game.new
+    t = GameCalculatorService.new
     # t = GameCalculatorService.new(g.id)
     # g = Game.new
     # g.save
-    t.calculate
-    t.innings = 1.5
-    t.pts_per_inning {}
-    @turn = Turn.new
+    bat_decision = params.delete("bat_decision")
+    pitch_decision = params.delete("pitch_decision")
+    @result = t.ph_combo(bat_decision, pitch_decision)
+    if @result == "calculate_advantage"
+      # t.calculate_advantage(at_bat, pitcher_id, batter_id, roll_1)
+    end
+    if @result == "calculate_result"
+      # t.calculate_result(xxxxxxx) !!!!!!
+    end
+    # t.execute_result()
+    # t.innings = 1.5
+    # t.pts_per_inning
+
 
   end
 
@@ -41,8 +65,9 @@ class TurnsController < ApplicationController
   end
 
   def show
-    id = params[:id]
-    @turn = Turn.find(id)
+    @current_game_id = params['id']
+    # id = params[:id]
+    # @turn = Turn.find(id)
   end
 
   def update
