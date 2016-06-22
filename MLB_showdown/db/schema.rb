@@ -11,10 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160619182934) do
+ActiveRecord::Schema.define(version: 20160622175144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "authentications", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "index"
+    t.string   "create"
+    t.string   "destroy"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "authorizations", force: :cascade do |t|
+    t.string   "provider"
+    t.string   "uid"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "base_states", force: :cascade do |t|
     t.string   "name"
@@ -23,11 +42,13 @@ ActiveRecord::Schema.define(version: 20160619182934) do
   end
 
   create_table "games", force: :cascade do |t|
-    t.string   "name"
+    t.string   "home_team"
+    t.string   "visitor_team"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
     t.integer  "home_team_user_id"
     t.integer  "visitor_team_user_id"
+    t.string   "name"
   end
 
   create_table "t1batters", force: :cascade do |t|
@@ -170,6 +191,13 @@ ActiveRecord::Schema.define(version: 20160619182934) do
     t.integer  "base_state_id"
     t.integer  "ending_base_state_id"
     t.float    "inning"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
