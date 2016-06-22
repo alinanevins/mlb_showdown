@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  get 'sessions/new'
+
+  get 'sessions/create'
+
+  get 'sessions/failure'
+
   root 'welcome#index'
 
   get '/rules' => 'welcome#rules'
@@ -10,6 +16,10 @@ Rails.application.routes.draw do
 
   get 'games/:id/turns/new' => 'turns#next_turn'
   post 'games/:id/turns/new' => 'turns#create_turn'
+
+  get   '/login', :to => 'sessions#new', :as => :login
+  get '/auth/:provider/callback', :to => 'sessions#create'
+  get '/auth/failure', :to => 'sessions#failure'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
