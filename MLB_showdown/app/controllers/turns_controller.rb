@@ -22,7 +22,7 @@ class TurnsController < ApplicationController
     b = AdvantageService.new(a.roll_1, @pitcher['control'], @batter['onbase'])
     a.advantage = b.advantage
 
-    c = ResultService.new(a.advantage, a.roll_2, @pitcher)
+    c = ResultService.new(a.advantage, a.roll_2, @pitcher, @batter)
     a.result = c.calculate_result
 
 
