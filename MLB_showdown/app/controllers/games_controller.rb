@@ -32,6 +32,8 @@ class GamesController < ApplicationController
   def show
     id = params[:id]
     @game = Game.find(id)
+    @turns = Turn.find_by game_id: id # @turns = all turns with the current game id
+
   end
 
   def update

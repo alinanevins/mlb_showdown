@@ -1,9 +1,20 @@
 <div class="container">
   <h2>All Games</h2>
-  <p><% @game.each do |a| %>
-    <p><b>Game Number: <%= a.id %></b>
-    <p>Name: <%= a.name %>
-    <p>Home Team User ID: <%= a.home_team_user_id %>
-    <p>Visiting Team User ID: <%= a.visitor_team_user_id %>
+
+  <table class="table-bordered table-striped">
+    <tr>
+      <th>Game Number</th>
+      <th>Name</th>
+      <th>Home Team</th>
+      <th>Visiting Team</th>
+    </tr>
+    <% @game.each do |a| %>
+    <tr>
+      <td><%= a.id %></td>
+      <td><%= a.name %></td>
+      <td><%= a.home_team_user_id %></td>
+      <td><%= a.visitor_team_user_id %></td>
       <% end %>
+    </tr>
+  </table>
 </div>
