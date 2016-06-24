@@ -21,9 +21,14 @@ class TurnsController < ApplicationController
     @pitcher = T2pitcher.first
     b = AdvantageService.new(a.roll_1, @pitcher['control'], @batter['onbase'])
     a.advantage = b.advantage
-
     c = ResultService.new(a.advantage, a.roll_2, @pitcher, @batter)
     a.result = c.calculate_result
+    @outs = 0
+    @home_runs = 0
+    @visitor_runs = 0
+    @points_per_inning = 0
+    d = EndingBaseStateService.new(a.base_state_id, a.result, @outs, @home_runs, @visitor_runs, @points_per_inning = 0)
+    a.ending_base_state_id = d.calculate_ending_base_state
 
 
     # if @at_bat == "home"

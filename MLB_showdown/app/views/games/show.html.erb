@@ -17,6 +17,7 @@
       <th>Batter's</br> Roll</th>
       <th>Advantage</th>
       <th>Result</th>
+      <th>Ending</br> Base State</th>
     </tr>
     <% @turns.each do |a| %>
     <tr>
@@ -30,6 +31,7 @@
       <td><%= a.roll_2 %></td>
       <td><%= a.advantage %></td>
       <td><%= a.result %></td>
+      <td><%= a.ending_base_state_id %></td>
       <% end %>
     </tr>
   </table>
