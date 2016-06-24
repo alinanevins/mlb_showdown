@@ -1,10 +1,31 @@
 <div class="container">
   <h1>All Turns</h1>
-  <p><% @turn.each do |a| %>
-    <p><b>Game Number: <%= a.game_id %></b>
-    <p>Global Turn Number: <%= a.id %>
-    <p>At Bat: <%= a.at_bat %>
-    <p>Pitcher's Decision: <%= a.pitch_decision %>
-    <p>Batter's Decision: <%= a.bat_decision %>
-  <% end %></p>
+
+  <table class="table-bordered table-striped">
+    <tr>
+      <th>Game ID</th>
+      <th>Global</br> Turn ID</th>
+      <th>Inning</th>
+      <th>At Bat</th>
+      <th>Base State</th>
+      <th>Pitcher's</br> Decision</th>
+      <th>Pitcher's</br> Roll</th>
+      <th>Batter's</br> Decision</th>
+      <th>Batter's</br> Roll</th>
+    </tr>
+    <% @turn.each do |a| %>
+    <tr>
+      <td><%= a.game_id %></td>
+      <td><%= a.id %></td>
+      <td><%= a.inning %></td>
+      <td><%= a.at_bat %></td>
+      <td><%= a.base_state_id %></td>
+      <td><%= a.pitch_decision %></td>
+      <td><%= a.roll_1 %></td>
+      <td><%= a.bat_decision %></td>
+      <td><%= a.roll_2 %></td>
+      <% end %>
+    </tr>
+  </table>
+
 </div>
