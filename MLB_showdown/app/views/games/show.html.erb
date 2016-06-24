@@ -4,7 +4,6 @@
   <p>Home Team User ID: <%= @game.home_team_user_id %>
   <p>Visiting Team User ID: <%= @game.visitor_team_user_id %>
 
-# view: for all @turns rows, show the following:
 
   <table class="table-bordered table-striped">
     <tr>
@@ -16,6 +15,7 @@
       <th>Pitcher's</br> Roll</th>
       <th>Batter's</br> Decision</th>
       <th>Batter's</br> Roll</th>
+      <th>Advantage</th>
     </tr>
     <% @turns.each do |a| %>
     <tr>
@@ -27,6 +27,7 @@
       <td><%= a.roll_1 %></td>
       <td><%= a.bat_decision %></td>
       <td><%= a.roll_2 %></td>
+      <td><%= a.advantage %></td>
       <% end %>
     </tr>
   </table>
