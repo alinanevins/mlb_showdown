@@ -1,8 +1,8 @@
 <div class="container">
   <h1>Take a turn</h1>
 
-  <%= form_tag ('/games/#{@current_game_id}/turns/new'), method: 'POST' do %>
-  Game ID: <%= number_field :game_id, :class => 'text_field', :step => 'integer' %></p>
+  <%= form_tag turns_path do %>
+
   Inning:
     <%= number_field_tag :inning, :class => 'text_field', :step => 'any' %></p>
   Who is at bat?
@@ -14,7 +14,37 @@
     <div class="col-sm-6">
       <div class="card card-block">
         <h3 class="card-title">Pitching Team</h3>
+        <h4>Bullpen</h4>
+        <table class="table-bordered table-striped">
+          <tr>
+            <th>Name</th>
+            <th>Ctrl</th>
+            <th>PU</th>
+            <th>SO</th>
+            <th>GB</th>
+            <th>FB</th>
+            <th>BB</th>
+            <th>1B</th>
+            <th>2B</th>
+            <th>HR</th>
+          </tr>
 
+          <tr>
+            <td><%= @pitcher.nameFull %></td>
+            <td><%= @pitcher.control %></td>
+            <td><%= @pu = @pitcher.PU %></td>
+            <td><%= @so = @pitcher.SO + @pitcher.PU %>
+                <!-- <% @tpu = @pu.to_i + 1 %>
+                <%= @tpu.to_s + "-" + @so.to_s %> -->
+              </td>
+            <td><%= @gb = @pitcher.GB + @so %></td>
+            <td><%= @fb = @pitcher.FB + @gb %></td>
+            <td><%= @bb = @pitcher.BB + @fb %></td>
+            <td><%= @_1b = @pitcher._1B + @bb %></td>
+            <td><%= @_2b = @pitcher._2B + @_1b %></td>
+            <td><%= @_hr = @pitcher._HR + @_2b %></td>
+          </tr>
+        </table>
         <p class="card-text"><p>Choose one of the following options:
         <p><%= select_tag "pitch_decision", options_for_select([['Pitch to the batter','P'], ['Intentionally walk the batter','W'], ['Substitute a new pitcher','R'], ['Substitute a fielder or change your defensive alignment','S']]) %></p>
         <p>Pitcher's roll: <%= number_field_tag :roll_1, :class => 'text_field', :step => 'integer' %></p>
@@ -23,9 +53,39 @@
     <div class="col-sm-6">
       <div class="card card-block">
         <h3 class="card-title">Batting Team</h3>
+        <h4>Bench</h4>
+        <table class="table-bordered table-striped">
+          <tr>
+            <th>Name</th>
+            <th>OnBase</th>
+            <th>SO</th>
+            <th>GB</th>
+            <th>FB</th>
+            <th>BB</th>
+            <th>1B</th>
+            <th>1B+</th>
+            <th>2B</th>
+            <th>3B</th>
+            <th>HR</th>
+          </tr>
+          <tr>
+            <td><%= @batter.nameFull %></td>
+            <td><%= @batter.onbase %></td>
+            <td><%= @batter.SO %></td>
+            <td><%= @batter.GB %></td>
+            <td><%= @batter.FB %></td>
+            <td><%= @batter.BB %></td>
+            <td><%= @batter._1B %></td>
+            <td><%= @batter._1Bplus %></td>
+            <td><%= @batter._2B %></td>
+            <td><%= @batter._3B %></td>
+            <td><%= @batter._HR %></td>
+          </tr>
+        </table>
+
         <p class="card-text"><p>Choose one of the following options:
         <p><%= select_tag "bat_decision", options_for_select([['Attempt to hit the ball','H'], ['Attempt a steal','S'], ['Bunt the ball and sacrifice yourself','B'], ['Substitute a new batter or runner','P']]) %></p>
-        <p>Pitcher's roll: <%= number_field :roll_2, :class => 'text_field', :step => 'integer' %></p>
+        <p>Batter's roll: <%= number_field_tag :roll_2, :class => 'text_field', :step => 'integer' %></p>
 
         <%= submit_tag "ROLL" %>
 

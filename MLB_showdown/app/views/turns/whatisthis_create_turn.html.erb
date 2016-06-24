@@ -1,5 +1,5 @@
 <div class="container">
-  <h1>Take a turn</h1>
+  <h1>Take a new turn</h1>
   <!-- <% @inning = 1 %> -->
   <%= form_tag('/games/:id/turns/new', method: :post) do |c| %>
   Game ID: <%= c.number_field_tag :game_id, :class => 'text_field', :step => 'integer' %></p>
@@ -14,9 +14,11 @@
 
     <div class="col-sm-6">
       <div class="card card-block">
-        <h3 class="card-title">Pitching Team</h3>
+        <h3 class="card-title">Pitching Team!</h3>
         <p class="card-text">
-          <p>Choose one of the following options:
+
+          
+          <p>!Choose one of the following options:
           <p><%= c.select_tag :pitch_decision, [['Pitch to the batter','P'], ['Intentionally walk the batter','W'], ['Substitute a new pitcher','R'], ['Substitute a fielder or change your defensive alignment','S']] %></p>
           <p>Pitcher's roll: <%= c.number_field_tag :roll_1, :class => 'text_field', :step => 'integer' %></p>
       </div>
