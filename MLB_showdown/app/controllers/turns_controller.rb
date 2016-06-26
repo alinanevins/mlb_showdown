@@ -87,6 +87,7 @@ class TurnsController < ApplicationController
     @current_game_id = params['game_id']
     id = params[:id]
     @turn = Turn.find(id)
+    
   end
 
   def update
