@@ -21,14 +21,9 @@ class TurnsController < ApplicationController
     @pitcher = T2pitcher.first
     b = AdvantageService.new(a.roll_1, @pitcher['control'], @batter['onbase'])
     a.advantage = b.advantage
+
     c = ResultService.new(a.advantage, a.roll_2, @pitcher, @batter)
     a.result = c.calculate_result
-    @outs = 0
-    @home_runs = 0
-    @visitor_runs = 0
-    @points_per_inning = 0
-    d = EndingBaseStateService.new(a.base_state_id, a.result, @outs, @home_runs, @visitor_runs, @points_per_inning = 0)
-    a.ending_base_state_id = d.calculate_ending_base_state
 
 
     # if @at_bat == "home"
@@ -63,19 +58,6 @@ class TurnsController < ApplicationController
     # this works
     @batter = T1batter.find_by id: 3
     @pitcher = T2pitcher.first
-
-
-    # if @result == "calculate_advantage"
-    #   # t.calculate_advantage(at_bat, pitcher_id, batter_id, roll_1)
-    # end
-    # if @result == "calculate_result"
-    #   # t.calculate_result(xxxxxxx) !!!!!!
-    # end
-    # t.execute_result()
-    # t.innings = 1.5
-    # t.pts_per_inning
-
-
   end
 
   def edit
@@ -87,7 +69,15 @@ class TurnsController < ApplicationController
     @current_game_id = params['game_id']
     id = params[:id]
     @turn = Turn.find(id)
+
+    # base state image
+    i = @turn.ending_base_state_id
+    @base_state_image = BaseState.find(i).image
     
+
+
+
+
   end
 
   def update
