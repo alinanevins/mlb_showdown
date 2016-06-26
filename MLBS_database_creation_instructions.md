@@ -123,3 +123,11 @@ str = 'nameFirst,nameLast,nameFull,yearID,setID,cardNo,team,onbase,SO,GB,FB,BB,1
 9. in psql
     \connect #your_file_name_development
     \d   ###Check to see if it's all there!
+
+-----------
+
+After adding image column to BaseStates, add the images by going into rails c and entering the following:
+a = BaseState.find(1)
+a.image = 'bs1.jpg'
+a.save
+# repeat for the other 7

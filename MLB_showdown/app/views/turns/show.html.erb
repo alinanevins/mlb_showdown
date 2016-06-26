@@ -1,7 +1,11 @@
 <div class="container">
   <h1>Game #<%= @current_game_id %></h1>
+<div style="float:right;">
+  <%= image_tag(@base_state_image) %>
+    <p><p><a href="/turns/new"><button type="button" class="btn btn-danger btn-lg" aria-pressed="false" autocomplete="off">Next Turn ></button></a>
+</div>
   Innning: <%= @turn.inning %></br>
-  Turn #<%= @turn.id %></br>
+  Global Turn #<%= @turn.id %></br>
   At Bat: <%= @turn.at_bat %></br>
 
   <h2>Pitching Team</h2>
@@ -19,5 +23,4 @@
   Advantage: <%= @turn.advantage %></br>
   Result: <%= @turn.result %></br>
   Ending Base State: <%= @turn.ending_base_state_id %>
-  <%= @base_state_image %>
 </div>
