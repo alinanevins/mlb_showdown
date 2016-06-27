@@ -10,7 +10,6 @@ class ResultService
   end
 
   def calculate_result
-    binding.pry
     if advantage == "pitcher"
       if @roll_2 < @pitcher['PU']
         @result = "PU"

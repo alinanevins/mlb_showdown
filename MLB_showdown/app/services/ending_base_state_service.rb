@@ -727,5 +727,6 @@ class EndingBaseStateService
       end
     end
     @ending_base_state_id = @base_state_id
+    binding.pry
   end
 end
