@@ -1,14 +1,15 @@
 class EndingBaseStateService
 
-  attr_accessor :base_state_id, :result, :outs, :home_runs, :visitor_runs, :points_per_inning
+  attr_accessor :base_state_id, :result, :outs, :home_runs, :visitor_runs, :at_bat, :pts_per_inning
 
-  def initialize(base_state_id, result, outs, home_runs, visitor_runs, points_per_inning)
+  def initialize(base_state_id, result, outs, home_runs, visitor_runs, at_bat, pts_per_inning)
     @base_state_id = base_state_id
     @result = result
     @outs = outs
     @home_runs = home_runs
     @visitor_runs = visitor_runs
-    @points_per_inning = points_per_inning
+    @pts_per_inning = pts_per_inning
+    @at_bat = at_bat
 
   end
 
@@ -25,40 +26,53 @@ class EndingBaseStateService
         # doubleplay
       elsif @base_state_id == 3
         @outs += 1
-        @ending_base_state_id = 4
+        @base_state_id = 4
       elsif @base_state_id == 4
         @outs += 1
-        @ending_base_state_id = 1
+        @base_state_id = 1
         @pts_per_inning += 1
-        @visitor_runs += 1
-        @home_runs += 1
+        if @at_bat == 'visitor'
+          @visitor_runs += 1
+        elsif @at_bat == 'home'
+          @home_runs += 1
+        end
+
       elsif @base_state_id == 5
         @outs += 1
-        @ending_base_state_id = 6
+        @base_state_id = 6
         # doubleplay
       elsif @base_state_id == 6
         @outs += 1
-        @ending_base_state_id = 2
+        @base_state_id = 2
         @pts_per_inning += 1
-        @visitor_runs += 1
-        @home_runs += 1
+        if @at_bat == 'visitor'
+          @visitor_runs += 1
+        elsif @at_bat == 'home'
+          @home_runs += 1
+        end
+
         # doubleplay
       elsif @base_state_id == 7
         @outs += 1
-        @ending_base_state_id = 4
+        @base_state_id = 4
         @pts_per_inning += 1
 
-        @visitor_runs += 1
+        if @at_bat == 'visitor'
+          @visitor_runs += 1
+        elsif @at_bat == 'home'
+          @home_runs += 1
+        end
 
-        @home_runs += 1
+
       elsif @base_state_id == 8
         @outs += 1
-        @ending_base_state_id = 6
+        @base_state_id = 6
         @pts_per_inning += 1
-
-        @visitor_runs += 1
-
-        @home_runs += 1
+        if @at_bat == 'visitor'
+          @visitor_runs += 1
+        elsif @at_bat == 'home'
+          @home_runs += 1
+        end
         # doubleplay
       end
     elsif @result == "FB"
@@ -87,293 +101,417 @@ class EndingBaseStateService
       end
     elsif @result == "BB"
       if @base_state_id == 1
-        @ending_base_state_id = 2
+        @base_state_id = 2
       elsif @base_state_id == 2
-        @ending_base_state_id = 5
+        @base_state_id = 5
       elsif @base_state_id == 3
-        @ending_base_state_id = 5
+        @base_state_id = 5
       elsif @base_state_id == 4
-        @ending_base_state_id = 6
+        @base_state_id = 6
       elsif @base_state_id == 5
-        @ending_base_state_id = 8
+        @base_state_id = 8
       elsif @base_state_id == 6
-        @ending_base_state_id = 8
+        @base_state_id = 8
       elsif @base_state_id == 7
-        @ending_base_state_id = 8
+        @base_state_id = 8
       elsif @base_state_id == 8
-        @ending_base_state_id = 8
+        @base_state_id = 8
         @pts_per_inning += 1
 
-        @visitor_runs += 1
+        if @at_bat == 'visitor'
+          @visitor_runs += 1
+        elsif @at_bat == 'home'
+          @home_runs += 1
+        end
 
-        @home_runs += 1
+
       end
     elsif @result == "_1B"
       if @base_state_id == 1
-        @ending_base_state_id = 2
+        @base_state_id = 2
       elsif @base_state_id == 2
-        @ending_base_state_id = 5
+        @base_state_id = 5
         #chance for 1 extra base
       elsif @base_state_id == 3
-        @ending_base_state_id = 6
+        @base_state_id = 6
         #chance for 1 extra base
       elsif @base_state_id == 4
-        @ending_base_state_id = 2
+        @base_state_id = 2
         @pts_per_inning += 1
 
-        @visitor_runs += 1
+        if @at_bat == 'visitor'
+          @visitor_runs += 1
+        elsif @at_bat == 'home'
+          @home_runs += 1
+        end
 
-        @home_runs += 1
+
       elsif @base_state_id == 5
-        @ending_base_state_id = 8
+        @base_state_id = 8
         #chance for 2 extra bases
       elsif @base_state_id == 6
-        @ending_base_state_id = 5
+        @base_state_id = 5
         @pts_per_inning += 1
 
-        @visitor_runs += 1
+        if @at_bat == 'visitor'
+          @visitor_runs += 1
+        elsif @at_bat == 'home'
+          @home_runs += 1
+        end
 
-        @home_runs += 1
+
         #chance for 1 extra base
       elsif @base_state_id == 7
-        @ending_base_state_id = 6
+        @base_state_id = 6
         @pts_per_inning += 1
 
-        @visitor_runs += 1
+        if @at_bat == 'visitor'
+          @visitor_runs += 1
+        elsif @at_bat == 'home'
+          @home_runs += 1
+        end
 
-        @home_runs += 1
+
         #chance for 1 extra base
       elsif @base_state_id == 8
-        @ending_base_state_id = 8
+        @base_state_id = 8
         @pts_per_inning += 1
 
-        @visitor_runs += 1
+        if @at_bat == 'visitor'
+          @visitor_runs += 1
+        elsif @at_bat == 'home'
+          @home_runs += 1
+        end
 
-        @home_runs += 1
+
         #chance for 2 extra bases
       end
     elsif @result == "_1Bplus"
       if @base_state_id == 1
-        @ending_base_state_id = 3
+        @base_state_id = 3
       elsif @base_state_id == 2
-        @ending_base_state_id = 5
+        @base_state_id = 5
         #chance for 1 extra base
       elsif @base_state_id == 3
-        @ending_base_state_id = 7
+        @base_state_id = 7
         #chance for 1 extra base
       elsif @base_state_id == 4
-        @ending_base_state_id = 3
+        @base_state_id = 3
         @pts_per_inning += 1
 
-        @visitor_runs += 1
+        if @at_bat == 'visitor'
+          @visitor_runs += 1
+        elsif @at_bat == 'home'
+          @home_runs += 1
+        end
 
-        @home_runs += 1
+
       elsif @base_state_id == 5
-        @ending_base_state_id = 8
+        @base_state_id = 8
         #chance for 2 extra bases
       elsif @base_state_id == 6
-        @ending_base_state_id = 5
+        @base_state_id = 5
         @pts_per_inning += 1
 
-        @visitor_runs += 1
+        if @at_bat == 'visitor'
+          @visitor_runs += 1
+        elsif @at_bat == 'home'
+          @home_runs += 1
+        end
 
-        @home_runs += 1
+
         #chance for 1 extra base
       elsif @base_state_id == 7
-        @ending_base_state_id = 7
+        @base_state_id = 7
         @pts_per_inning += 1
 
-        @visitor_runs += 1
+        if @at_bat == 'visitor'
+          @visitor_runs += 1
+        elsif @at_bat == 'home'
+          @home_runs += 1
+        end
 
-        @home_runs += 1
+
         #chance for 1 extra base
       elsif @base_state_id == 8
-        @ending_base_state_id = 8
+        @base_state_id = 8
         @pts_per_inning += 1
 
-        @visitor_runs += 1
+        if @at_bat == 'visitor'
+          @visitor_runs += 1
+        elsif @at_bat == 'home'
+          @home_runs += 1
+        end
 
-        @home_runs += 1
+
         #chance for 2 extra bases
       end
     elsif @result == "_2B"
       if @base_state_id == 1
-        @ending_base_state_id = 3
+        @base_state_id = 3
       elsif @base_state_id == 2
-        @ending_base_state_id = 7
+        @base_state_id = 7
         #chance for 1 extra base
       elsif @base_state_id == 3
-        @ending_base_state_id = 3
+        @base_state_id = 3
         @pts_per_inning += 1
 
-        @visitor_runs += 1
+        if @at_bat == 'visitor'
+          @visitor_runs += 1
+        elsif @at_bat == 'home'
+          @home_runs += 1
+        end
 
-        @home_runs += 1
+
       elsif @base_state_id == 4
-        @ending_base_state_id = 3
+        @base_state_id = 3
         @pts_per_inning += 1
 
-        @visitor_runs += 1
+        if @at_bat == 'visitor'
+          @visitor_runs += 1
+        elsif @at_bat == 'home'
+          @home_runs += 1
+        end
 
-        @home_runs += 1
+
       elsif @base_state_id == 5
-        @ending_base_state_id = 7
+        @base_state_id = 7
         @pts_per_inning += 1
 
-        @visitor_runs += 1
+        if @at_bat == 'visitor'
+          @visitor_runs += 1
+        elsif @at_bat == 'home'
+          @home_runs += 1
+        end
 
-        @home_runs += 1
+
         #chance for 1 extra base
       elsif @base_state_id == 6
-        @ending_base_state_id = 7
+        @base_state_id = 7
         @pts_per_inning += 1
 
-        @visitor_runs += 1
+        if @at_bat == 'visitor'
+          @visitor_runs += 1
+        elsif @at_bat == 'home'
+          @home_runs += 1
+        end
 
-        @home_runs += 1
+
         #chance for 1 extra base
       elsif @base_state_id == 7
-        @ending_base_state_id = 3
+        @base_state_id = 3
         @pts_per_inning += 2
 
-        @visitor_runs += 2
+        if @at_bat == 'visitor'
+          @visitor_runs += 2
+        elsif @at_bat == 'home'
+          @home_runs += 2
+        end
 
-        @home_runs += 2
+
       elsif @base_state_id == 8
-        @ending_base_state_id = 7
+        @base_state_id = 7
         @pts_per_inning += 2
 
-        @visitor_runs += 2
+        if @at_bat == 'visitor'
+          @visitor_runs += 2
+        elsif @at_bat == 'home'
+          @home_runs += 2
+        end
 
-        @home_runs += 2
+
         #chance for 1 extra base
       end
     elsif @result == "_3B"
-      @ending_base_state_id = 4
+      @base_state_id = 4
       if @base_state_id == 1
         @pts_per_inning += 1
 
-        @visitor_runs += 1
+        if @at_bat == 'visitor'
+          @visitor_runs += 1
+        elsif @at_bat == 'home'
+          @home_runs += 1
+        end
 
-        @home_runs += 1
+
       elsif @base_state_id == 2
         @pts_per_inning += 1
 
-        @visitor_runs += 1
+        if @at_bat == 'visitor'
+          @visitor_runs += 1
+        elsif @at_bat == 'home'
+          @home_runs += 1
+        end
 
-        @home_runs += 1
+
       elsif @base_state_id == 3
         @pts_per_inning += 1
 
-        @visitor_runs += 1
+        if @at_bat == 'visitor'
+          @visitor_runs += 1
+        elsif @at_bat == 'home'
+          @home_runs += 1
+        end
 
-        @home_runs += 1
+
       elsif @base_state_id == 4
         @pts_per_inning += 1
 
-        @visitor_runs += 1
+        if @at_bat == 'visitor'
+          @visitor_runs += 1
+        elsif @at_bat == 'home'
+          @home_runs += 1
+        end
 
-        @home_runs += 1
+
       elsif @base_state_id == 5
         @pts_per_inning += 2
 
-        @visitor_runs += 2
+        if @at_bat == 'visitor'
+          @visitor_runs += 2
+        elsif @at_bat == 'home'
+          @home_runs += 2
+        end
 
-        @home_runs += 2
+
       elsif @base_state_id == 6
         @pts_per_inning += 2
 
-        @visitor_runs += 2
+        if @at_bat == 'visitor'
+          @visitor_runs += 2
+        elsif @at_bat == 'home'
+          @home_runs += 2
+        end
 
-        @home_runs += 2
+
       elsif @base_state_id == 7
         @pts_per_inning += 2
 
-        @visitor_runs += 2
+        if @at_bat == 'visitor'
+          @visitor_runs += 2
+        elsif @at_bat == 'home'
+          @home_runs += 2
+        end
 
-        @home_runs += 2
+
       elsif @base_state_id == 8
         @pts_per_inning += 3
 
-        @visitor_runs += 3
+        if @at_bat == 'visitor'
+          @visitor_runs += 3
+        elsif @at_bat == 'home'
+          @home_runs += 3
+        end
 
-        @home_runs += 3
+
       end
     elsif @result == "_HR"
-      @ending_base_state_id = 1
       if @base_state_id == 1
-        @pts_per_inning += 2
+        @pts_per_inning += 1
 
-        @visitor_runs += 2
+        if @at_bat == 'visitor'
+          @visitor_runs += 1
+        elsif @at_bat == 'home'
+          @home_runs += 1
+        end
 
-        @home_runs += 2
+
       elsif @base_state_id == 2
         @pts_per_inning += 2
 
-        @visitor_runs += 2
+        if @at_bat == 'visitor'
+          @visitor_runs += 2
+        elsif @at_bat == 'home'
+          @home_runs += 2
+        end
 
-        @home_runs += 2
+
       elsif @base_state_id == 3
         @pts_per_inning += 2
 
-        @visitor_runs += 2
+        if @at_bat == 'visitor'
+          @visitor_runs += 2
+        elsif @at_bat == 'home'
+          @home_runs += 2
+        end
 
-        @home_runs += 2
+
       elsif @base_state_id == 4
         @pts_per_inning += 2
 
-        @visitor_runs += 2
+        if @at_bat == 'visitor'
+          @visitor_runs += 2
+        elsif @at_bat == 'home'
+          @home_runs += 2
+        end
 
-        @home_runs += 2
+
       elsif @base_state_id == 5
         @pts_per_inning += 3
 
-        @visitor_runs += 3
+        if @at_bat == 'visitor'
+          @visitor_runs += 3
+        elsif @at_bat == 'home'
+          @home_runs += 3
+        end
 
-        @home_runs += 3
+
       elsif @base_state_id == 6
         @pts_per_inning += 3
 
-        @visitor_runs += 3
+        if @at_bat == 'visitor'
+          @visitor_runs += 3
+        elsif @at_bat == 'home'
+          @home_runs += 3
+        end
 
-        @home_runs += 3
+
       elsif @base_state_id == 7
         @pts_per_inning += 3
 
-        @visitor_runs += 3
+        if @at_bat == 'visitor'
+          @visitor_runs += 3
+        elsif @at_bat == 'home'
+          @home_runs += 3
+        end
 
-        @home_runs += 3
+
       elsif @base_state_id == 8
         @pts_per_inning += 4
 
-        @visitor_runs += 4
+        if @at_bat == 'visitor'
+          @visitor_runs += 4
+        elsif @at_bat == 'home'
+          @home_runs += 4
+        end
 
-        @home_runs += 4
+
       end
+      @base_state_id = 1
     elsif @result == "SB"
       if @base_state_id == 1
         @outs += 1
       elsif @base_state_id == 2
         @outs += 1
-        @ending_base_state_id = 3
+        @base_state_id = 3
       elsif @base_state_id == 3
         @outs += 1
-        @ending_base_state_id = 4
+        @base_state_id = 4
       elsif @base_state_id == 4
         @outs += 1
-        @ending_base_state_id = 4
+        @base_state_id = 4
       elsif @base_state_id == 5
         @outs += 1
-        @ending_base_state_id = 7
+        @base_state_id = 7
       elsif @base_state_id == 6
         @outs += 1
-        @ending_base_state_id = 7
+        @base_state_id = 7
       elsif @base_state_id == 7
         @outs += 1
-        @ending_base_state_id = 7
+        @base_state_id = 7
       elsif @base_state_id == 8
         @outs += 1
-        @ending_base_state_id = 8
+        @base_state_id = 8
       end
     elsif @result == "F1B"
       if @base_state_id == 1
@@ -382,22 +520,22 @@ class EndingBaseStateService
         #Should never happen
       elsif @base_state_id == 3
         @outs += 1
-        @ending_base_state_id = 1
+        @base_state_id = 1
       elsif @base_state_id == 4
         @outs += 1
-        @ending_base_state_id = 1
+        @base_state_id = 1
       elsif @base_state_id == 5
         @outs += 1
-        @ending_base_state_id = 2
+        @base_state_id = 2
       elsif @base_state_id == 6
         @outs += 1
-        @ending_base_state_id = 2
+        @base_state_id = 2
       elsif @base_state_id == 7
         @outs += 1
-        @ending_base_state_id = 3
+        @base_state_id = 3
       elsif @base_state_id == 8
         @outs += 1
-        @ending_base_state_id = 5
+        @base_state_id = 5
       end
     elsif @result == "S1B"
       if @base_state_id == 1
@@ -405,37 +543,53 @@ class EndingBaseStateService
       elsif @base_state_id == 2
         #Should never happen
       elsif @base_state_id == 3
-        @ending_base_state_id = 4
+        @base_state_id = 4
       elsif @base_state_id == 4
-        @ending_base_state_id = 1
+        @base_state_id = 1
         @pts_per_inning += 1
 
-        @visitor_runs += 1
+        if @at_bat == 'visitor'
+          @visitor_runs += 1
+        elsif @at_bat == 'home'
+          @home_runs += 1
+        end
 
-        @home_runs += 1
+
       elsif @base_state_id == 5
-        @ending_base_state_id = 6
+        @base_state_id = 6
       elsif @base_state_id == 6
-        @ending_base_state_id = 2
+        @base_state_id = 2
         @pts_per_inning += 1
 
-        @visitor_runs += 1
+        if @at_bat == 'visitor'
+          @visitor_runs += 1
+        elsif @at_bat == 'home'
+          @home_runs += 1
+        end
 
-        @home_runs += 1
+
       elsif @base_state_id == 7
-        @ending_base_state_id = 3
+        @base_state_id = 3
         @pts_per_inning += 1
 
-        @visitor_runs += 1
+        if @at_bat == 'visitor'
+          @visitor_runs += 1
+        elsif @at_bat == 'home'
+          @home_runs += 1
+        end
 
-        @home_runs += 1
+
       elsif @base_state_id == 8
-        @ending_base_state_id = 5
+        @base_state_id = 5
         @pts_per_inning += 1
 
-        @visitor_runs += 1
+        if @at_bat == 'visitor'
+          @visitor_runs += 1
+        elsif @at_bat == 'home'
+          @home_runs += 1
+        end
 
-        @home_runs += 1
+
       end
     elsif @result == "S2B"
       if @base_state_id == 1
@@ -451,19 +605,27 @@ class EndingBaseStateService
       elsif @base_state_id == 6
         #Should never happen
       elsif @base_state_id == 7
-        @ending_base_state_id = 4
+        @base_state_id = 4
         @pts_per_inning += 1
 
-        @visitor_runs += 1
+        if @at_bat == 'visitor'
+          @visitor_runs += 1
+        elsif @at_bat == 'home'
+          @home_runs += 1
+        end
 
-        @home_runs += 1
+
       elsif @base_state_id == 8
-        @ending_base_state_id = 6
+        @base_state_id = 6
         @pts_per_inning += 1
 
-        @visitor_runs += 1
+        if @at_bat == 'visitor'
+          @visitor_runs += 1
+        elsif @at_bat == 'home'
+          @home_runs += 1
+        end
 
-        @home_runs += 1
+
       end
     elsif @result == "F2BL"
       if @base_state_id == 1
@@ -479,10 +641,10 @@ class EndingBaseStateService
       elsif @base_state_id == 6
         #Should never happen
       elsif @base_state_id == 7
-        @ending_base_state_id = 4
+        @base_state_id = 4
         @outs += 1
       elsif @base_state_id == 8
-        @ending_base_state_id = 6
+        @base_state_id = 6
         @outs += 1
       end
     elsif @result == "F2BT"
@@ -501,33 +663,41 @@ class EndingBaseStateService
       elsif @base_state_id == 7
         @pts_per_inning += 1
 
-        @visitor_runs += 1
+        if @at_bat == 'visitor'
+          @visitor_runs += 1
+        elsif @at_bat == 'home'
+          @home_runs += 1
+        end
 
-        @home_runs += 1
-        @ending_base_state_id = 1
+
+        @base_state_id = 1
         @outs += 1
       elsif @base_state_id == 8
         @pts_per_inning += 1
 
-        @visitor_runs += 1
+        if @at_bat == 'visitor'
+          @visitor_runs += 1
+        elsif @at_bat == 'home'
+          @home_runs += 1
+        end
 
-        @home_runs += 1
-        @ending_base_state_id = 2
+
+        @base_state_id = 2
         @outs += 1
       end
     elsif @result == "SS"
       if @base_state_id == 1
         #Should never happen
       elsif @base_state_id == 2
-        @ending_base_state_id = 3
+        @base_state_id = 3
       elsif @base_state_id == 3
-        @ending_base_state_id = 4
+        @base_state_id = 4
       elsif @base_state_id == 4
         #Should never happen
       elsif @base_state_id == 5
-        @ending_base_state_id = 6
+        @base_state_id = 6
       elsif @base_state_id == 6
-        @ending_base_state_id = 7
+        @base_state_id = 7
       elsif @base_state_id == 7
         #Should never happen
       elsif @base_state_id == 8
@@ -537,18 +707,18 @@ class EndingBaseStateService
       if @base_state_id == 1
         #Should never happen
       elsif @base_state_id == 2
-        @ending_base_state_id = 1
+        @base_state_id = 1
         @outs += 1
       elsif @base_state_id == 3
-        @ending_base_state_id = 1
+        @base_state_id = 1
         @outs += 1
       elsif @base_state_id == 4
         #Should never happen
       elsif @base_state_id == 5
-        @ending_base_state_id = 2
+        @base_state_id = 2
         @outs += 1
       elsif @base_state_id == 6
-        @ending_base_state_id = 4
+        @base_state_id = 4
         @outs += 1
       elsif @base_state_id == 7
         #Should never happen
@@ -556,5 +726,6 @@ class EndingBaseStateService
         #Should never happen
       end
     end
+    @ending_base_state_id = @base_state_id
   end
 end

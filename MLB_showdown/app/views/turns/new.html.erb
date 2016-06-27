@@ -4,11 +4,18 @@
   <%= form_tag turns_path do %>
 
   Inning:
-    <%= number_field_tag :inning, :class => 'text_field', :step => 'any' %></p>
+  <%= number_field_tag :inning, :class => 'text_field', :step => 'any' %></p>
   Who is at bat?
-    <%= select_tag "at_bat", options_for_select(['home','visitor']) %></p>
+  <%= select_tag "at_bat", options_for_select(['visitor','home']) %></p>
+  Away Score:
+  <%= number_field_tag :visitor_runs, :class => 'text_field', :step => 'any' %></p>
+  Home Score:
+  <%= number_field_tag :home_runs, :class => 'text_field', :step => 'any' %></p>
   What is the base state?
-    <%= select_tag "base_state_id", options_for_select([['empty bases','1'], ['runner on 1st','2'], ['runner on 2nd','3'], ['runner on 3rd','4'], ['runner on 1st and 2nd','5'], ['runner on 1st and 3rd','6'], ['runner on 2nd and 3rd','7'], ['bases loaded','8']]) %>
+  <%= select_tag "base_state_id", options_for_select([['empty bases','1'], ['runner on 1st','2'], ['runner on 2nd','3'], ['runner on 3rd','4'], ['runner on 1st and 2nd','5'], ['runner on 1st and 3rd','6'], ['runner on 2nd and 3rd','7'], ['bases loaded','8']]) %></p>
+  How many outs are there?
+  <%= select_tag "outs", options_for_select([['0','0'], ['1','1'], ['2','2']]) %>
+
 
   <div class="row">
     <div class="col-sm-6">
@@ -32,65 +39,218 @@
           <tr>
             <td><%= @pitcher.nameFull %></td>
             <td><%= @pitcher.control %></td>
-            <td><%= @pu = @pitcher.PU %></td>
-            <td><%= @so = @pitcher.SO + @pitcher.PU %>
-                <!-- <% @tpu = @pu.to_i + 1 %>
-                <%= @tpu.to_s + "-" + @so.to_s %> -->
-              </td>
-            <td><%= @gb = @pitcher.GB + @so %></td>
-            <td><%= @fb = @pitcher.FB + @gb %></td>
-            <td><%= @bb = @pitcher.BB + @fb %></td>
-            <td><%= @_1b = @pitcher._1B + @bb %></td>
-            <td><%= @_2b = @pitcher._2B + @_1b %></td>
-            <td><%= @_hr = @pitcher._HR + @_2b %></td>
+            <td><%if @pitcher.PU == 0
+              @showSO = "-"
+            elsif @pitcher.PU == 1
+              @showPU = "1"
+            elsif @pitcher.PU > 1
+              @showPU = "1-" + @pitcher.PU.to_s
+            end
+            @cum = @pitcher.PU%>
+            <%=@showPU%></td>
+
+            <td><%if @pitcher.SO == 0
+              @showSO = "-"
+            elsif @pitcher.SO== 1
+              @showSO = @cum + 1
+            elsif @pitcher.SO > 1
+              @showSO = (1 + @cum).to_s + "-" + (@cum + @pitcher.SO).to_s
+            end
+            @cum = @cum + @pitcher.SO%>
+            <%=@showSO%></td>
+
+            <td><%if @pitcher.GB == 0
+              @showGB = "-"
+            elsif @pitcher.GB== 1
+              @showGB = @cum + 1
+            elsif @pitcher.GB > 1
+              @showGB = (1 + @cum).to_s + "-" + (@cum + @pitcher.GB).to_s
+            end
+            @cum = @cum + @pitcher.GB%>
+            <%=@showGB%></td>
+
+            <td><%if @pitcher.FB == 0
+              @showFB = "-"
+            elsif @pitcher.FB== 1
+              @showFB = @cum + 1
+            elsif @pitcher.FB > 1
+              @showFB = (1 + @cum).to_s + "-" + (@cum + @pitcher.FB).to_s
+            end
+            @cum = @cum + @pitcher.FB%>
+            <%=@showFB%></td>
+
+            <td><%if @pitcher.BB == 0
+              @showBB = "-"
+            elsif @pitcher.BB== 1
+              @showBB = @cum + 1
+            elsif @pitcher.BB > 1
+              @showBB = (1 + @cum).to_s + "-" + (@cum + @pitcher.BB).to_s
+            end
+            @cum = @cum + @pitcher.BB%>
+            <%=@showBB%></td>
+
+            <td><%if @pitcher._1B == 0
+              @show1B = "-"
+            elsif @pitcher._1B== 1
+              @show1B = @cum + 1
+            elsif @pitcher._1B > 1
+              @show1B = (1 + @cum).to_s + "-" + (@cum + @pitcher._1B).to_s
+            end
+            @cum = @cum + @pitcher._1B%>
+            <%=@show1B%></td>
+
+            <td><%if @pitcher._2B == 0
+              @show2B = "-"
+            elsif @pitcher._2B== 1
+              @show2B = @cum + 1
+            elsif @pitcher._2B > 1
+              @show2B = (1 + @cum).to_s + "-" + (@cum + @pitcher._2B).to_s
+            end
+            @cum = @cum + @pitcher._2B%>
+            <%=@show2B%></td>
+
+            <td><%if @pitcher._HR == 0
+              @showHR = "-"
+            elsif @pitcher._HR== 1
+              @showHR = @cum + 1
+            elsif @pitcher._HR > 1
+              @showHR = (1 + @cum).to_s + "-" + (@cum + @pitcher._HR).to_s
+            end
+            @cum = @cum + @pitcher._HR%>
+            <%=@showHR%></td>
+
+
           </tr>
         </table>
         <p class="card-text"><p>Choose one of the following options:
-        <p><%= select_tag "pitch_decision", options_for_select([['Pitch to the batter','P'], ['Intentionally walk the batter','W'], ['Substitute a new pitcher','R'], ['Substitute a fielder or change your defensive alignment','S']]) %></p>
-        <p>Pitcher's roll: <%= number_field_tag :roll_1, :class => 'text_field', :step => 'integer' %></p>
+          <p><%= select_tag "pitch_decision", options_for_select([['Pitch to the batter','P'], ['Intentionally walk the batter','W'], ['Substitute a new pitcher','R'], ['Substitute a fielder or change your defensive alignment','S']]) %></p>
+          <p>Pitcher's roll: <%= number_field_tag :roll_1, :class => 'text_field', :step => 'integer' %></p>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="card card-block">
+          <h3 class="card-title">Batting Team</h3>
+          <h4>Bench</h4>
+          <table class="table-bordered table-striped">
+            <tr>
+              <th>Name</th>
+              <th>OnBase</th>
+              <th>SO</th>
+              <th>GB</th>
+              <th>FB</th>
+              <th>BB</th>
+              <th>1B</th>
+              <th>1B+</th>
+              <th>2B</th>
+              <th>3B</th>
+              <th>HR</th>
+            </tr>
+
+            <tr>
+              <td><%= @batter.nameFull %></td>
+              <td><%= @batter.onbase %></td>
+              <td><%if @batter.SO == 0
+                @showSO = "-"
+              elsif @batter.SO == 1
+                @showSO = "1"
+              elsif @batter.SO > 1
+                @showSO = "1-" + @batter.SO.to_s
+              end
+              @cum = @batter.SO%>
+              <%=@showSO%></td>
+
+              <td><%if @batter.GB == 0
+                @showGB = "-"
+              elsif @batter.GB== 1
+                @showGB = @cum + 1
+              elsif @batter.GB > 1
+                @showGB = (1 + @cum).to_s + "-" + (@cum + @batter.GB).to_s
+              end
+              @cum = @cum + @batter.GB%>
+              <%=@showGB%></td>
+
+              <td><%if @batter.FB == 0
+                @showFB = "-"
+              elsif @batter.FB== 1
+                @showFB = @cum + 1
+              elsif @batter.FB > 1
+                @showFB = (1 + @cum).to_s + "-" + (@cum + @batter.FB).to_s
+              end
+              @cum = @cum + @batter.FB%>
+              <%=@showFB%></td>
+
+              <td><%if @batter.BB == 0
+                @showBB = "-"
+              elsif @batter.BB== 1
+                @showBB = @cum + 1
+              elsif @batter.BB > 1
+                @showBB = (1 + @cum).to_s + "-" + (@cum + @batter.BB).to_s
+              end
+              @cum = @cum + @batter.BB%>
+              <%=@showBB%></td>
+
+              <td><%if @batter._1B == 0
+                @show1B = "-"
+              elsif @batter._1B== 1
+                @show1B = @cum + 1
+              elsif @batter._1B > 1
+                @show1B = (1 + @cum).to_s + "-" + (@cum + @batter._1B).to_s
+              end
+              @cum = @cum + @batter._1B%>
+              <%=@show1B%></td>
+
+              <td><%if @batter._1Bplus == 0
+                @show1Bplus = "-"
+              elsif @batter._1Bplus== 1
+                @show1Bplus = @cum + 1
+              elsif @batter._1Bplus > 1
+                @show1Bplus = (1 + @cum).to_s + "-" + (@cum + @batter._1Bplus).to_s
+              end
+              @cum = @cum + @batter._1Bplus%>
+              <%=@show1Bplus%></td>
+
+              <td><%if @batter._2B == 0
+                @show2B = "-"
+              elsif @batter._2B== 1
+                @show2B = @cum + 1
+              elsif @batter._2B > 1
+                @show2B = (1 + @cum).to_s + "-" + (@cum + @batter._2B).to_s
+              end
+              @cum = @cum + @batter._2B%>
+              <%=@show2B%></td>
+
+              <td><%if @batter._3B == 0
+                @show3B = "-"
+              elsif @batter._3B== 1
+                @show3B = @cum + 1
+              elsif @batter._3B > 1
+                @show3B = (1 + @cum).to_s + "-" + (@cum + @batter._3B).to_s
+              end
+              @cum = @cum + @batter._3B%>
+              <%=@show3B%></td>
+
+              <td><%if @batter._HR == 0
+                @showHR = "-"
+              elsif @batter._HR== 1
+                @showHR = @cum + 1
+              elsif @batter._HR > 1
+                @showHR = (1 + @cum).to_s + "-" + (@cum + @batter._HR).to_s
+              end
+              @cum = @cum + @batter._HR%>
+              <%=@showHR%></td>
+
+
+            </tr>
+          </table>
+
+          <p class="card-text"><p>Choose one of the following options:
+            <p><%= select_tag "bat_decision", options_for_select([['Attempt to hit the ball','H'], ['Attempt a steal','S'], ['Bunt the ball and sacrifice yourself','B'], ['Substitute a new batter or runner','P']]) %></p>
+            <p>Batter's roll: <%= number_field_tag :roll_2, :class => 'text_field', :step => 'integer' %></p>
+
+            <%= submit_tag "ROLL" %>
+
+          </div>
+        </div>
       </div>
     </div>
-    <div class="col-sm-6">
-      <div class="card card-block">
-        <h3 class="card-title">Batting Team</h3>
-        <h4>Bench</h4>
-        <table class="table-bordered table-striped">
-          <tr>
-            <th>Name</th>
-            <th>OnBase</th>
-            <th>SO</th>
-            <th>GB</th>
-            <th>FB</th>
-            <th>BB</th>
-            <th>1B</th>
-            <th>1B+</th>
-            <th>2B</th>
-            <th>3B</th>
-            <th>HR</th>
-          </tr>
-          <tr>
-            <td><%= @batter.nameFull %></td>
-            <td><%= @batter.onbase %></td>
-            <td><%= @batter.SO %></td>
-            <td><%= @batter.GB %></td>
-            <td><%= @batter.FB %></td>
-            <td><%= @batter.BB %></td>
-            <td><%= @batter._1B %></td>
-            <td><%= @batter._1Bplus %></td>
-            <td><%= @batter._2B %></td>
-            <td><%= @batter._3B %></td>
-            <td><%= @batter._HR %></td>
-          </tr>
-        </table>
-
-        <p class="card-text"><p>Choose one of the following options:
-        <p><%= select_tag "bat_decision", options_for_select([['Attempt to hit the ball','H'], ['Attempt a steal','S'], ['Bunt the ball and sacrifice yourself','B'], ['Substitute a new batter or runner','P']]) %></p>
-        <p>Batter's roll: <%= number_field_tag :roll_2, :class => 'text_field', :step => 'integer' %></p>
-
-        <%= submit_tag "ROLL" %>
-
-      </div>
-    </div>
-  </div>
-</div>
-<% end %>
+    <% end %>
