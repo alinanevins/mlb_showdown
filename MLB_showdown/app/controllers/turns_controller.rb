@@ -7,7 +7,6 @@ class TurnsController < ApplicationController
     a = Turn.new
     a.inning = params['inning']
     a.at_bat = params['at_bat']
-    a.base_state_id = params['base_state_id']
     # a.base_state = turn_hash['name']
     a.bat_decision = params['bat_decision']
     a.pitch_decision = params['pitch_decision']
@@ -16,21 +15,21 @@ class TurnsController < ApplicationController
     a.game_id = 1
     params.delete('turn')
 
-
     @batter = T1batter.find_by id: 3
     @pitcher = T2pitcher.first
+
     b = AdvantageService.new(a.roll_1, @pitcher['control'], @batter['onbase'])
     a.advantage = b.advantage
 
     c = ResultService.new(a.advantage, a.roll_2, @pitcher, @batter)
     a.result = c.calculate_result
 
-
-    # if @at_bat == "home"
-    #   batter_id = T1Batter.find(batter_id)
-    # else
-    #   T2Pitcher.find(pitcher_id)
-
+    a.result = c.calculate_result
+    d = EndingBaseStateService.new(a.base_state_id, a.result, a.outs, a.home_runs, a.visitor_runs, a.at_bat, 0)
+    a.ending_base_state_id = d.calculate_ending_base_state
+    a.outs = d.outs
+    a.home_runs = d.home_runs
+    a.visitor_runs = d.visitor_runs
 
     if a.save
       a = Turn.last
@@ -58,6 +57,15 @@ class TurnsController < ApplicationController
     # this works
     @batter = T1batter.find_by id: 3
     @pitcher = T2pitcher.first
+
+    l = Turn.last
+    i = l.ending_base_state_id || 1
+    @base_state_image = BaseState.find(i).image
+
+    @turn.base_state_id = i
+    @base_state_name = BaseState.find(i).name
+
+
   end
 
   def edit
@@ -71,12 +79,8 @@ class TurnsController < ApplicationController
     @turn = Turn.find(id)
 
     # base state image
-    i = @turn.ending_base_state_id
+    i = @turn.ending_base_state_id || 1
     @base_state_image = BaseState.find(i).image
-    
-
-
-
 
   end
 

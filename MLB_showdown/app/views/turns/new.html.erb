@@ -1,14 +1,21 @@
 <div class="container">
-  <h1>Take a turn</h1>
-
-  <%= form_tag turns_path do %>
-
-  Inning:
-    <%= number_field_tag :inning, :class => 'text_field', :step => 'any' %></p>
-  Who is at bat?
-    <%= select_tag "at_bat", options_for_select(['home','visitor']) %></p>
-  What is the base state?
-    <%= select_tag "base_state_id", options_for_select([['empty bases','1'], ['runner on 1st','2'], ['runner on 2nd','3'], ['runner on 3rd','4'], ['runner on 1st and 2nd','5'], ['runner on 1st and 3rd','6'], ['runner on 2nd and 3rd','7'], ['bases loaded','8']]) %>
+  <div class="row">
+    <div class="col-sm-6">
+      <h1>Take a turn</h1>
+      <%= form_tag turns_path do %>
+      Inning:
+        <%= number_field_tag :inning, :class => 'text_field', :step => 'any' %></p>
+      Who is at bat?
+        <%= select_tag "at_bat", options_for_select(['home','visitor']) %></p>
+      Base state: <%= @base_state_name %>
+        <!-- <%= select_tag "base_state_id", options_for_select([['empty bases','1'], ['runner on 1st','2'], ['runner on 2nd','3'], ['runner on 3rd','4'], ['runner on 1st and 2nd','5'], ['runner on 1st and 3rd','6'], ['runner on 2nd and 3rd','7'], ['bases loaded','8']]) %> -->
+    </div>
+    <div class="col-sm-6">
+      <div style="float:right;">
+        <%= image_tag(@base_state_image) %>
+      </div>
+    </div>
+  </div>
 
   <div class="row">
     <div class="col-sm-6">
