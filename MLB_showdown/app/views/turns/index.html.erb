@@ -7,13 +7,14 @@
       <th>Global</br> Turn ID</th>
       <th>Inning</th>
       <th>At Bat</th>
-      <th>Base State</th>
+      <th>Initial</b> Base State</th>
       <th>Pitcher's</br> Decision</th>
       <th>Pitcher's</br> Roll</th>
       <th>Batter's</br> Decision</th>
       <th>Batter's</br> Roll</th>
       <th>Advantage</th>
       <th>Result</th>
+      <th>Ending</br> Base State</th>
     </tr>
     <% @turn.each do |a| %>
     <tr>
@@ -28,7 +29,7 @@
       <td><%= a.roll_2 %></td>
       <td><%= a.advantage %></td>
       <td><%= a.result %></td>
-
+      <td><%= a.ending_base_state_id %></td>
       <% end %>
     </tr>
   </table>
