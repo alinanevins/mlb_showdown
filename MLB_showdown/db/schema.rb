@@ -16,17 +16,6 @@ ActiveRecord::Schema.define(version: 20160627125812) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "authentications", force: :cascade do |t|
-    t.integer  "user_id"
-    t.string   "provider"
-    t.string   "uid"
-    t.string   "index"
-    t.string   "create"
-    t.string   "destroy"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "authorizations", force: :cascade do |t|
     t.string   "provider"
     t.string   "uid"
@@ -43,13 +32,11 @@ ActiveRecord::Schema.define(version: 20160627125812) do
   end
 
   create_table "games", force: :cascade do |t|
-    t.string   "home_team"
-    t.string   "visitor_team"
+    t.string   "name"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
     t.integer  "home_team_user_id"
     t.integer  "visitor_team_user_id"
-    t.string   "name"
   end
 
   create_table "t1batters", force: :cascade do |t|

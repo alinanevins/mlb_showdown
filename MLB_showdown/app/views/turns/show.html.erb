@@ -1,9 +1,53 @@
 <div class="container">
-  <h1>Game #<%= @current_game_id %></h1>
 <div style="float:right;">
+  <table class="table-bordered table-striped">
+    <tr>
+      <th></th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>RUNS</th>
+      <th>OUTS</th>
+    </tr>
+    <tr>
+      <th>VISITOR</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td><%= @turn.visitor_runs %></td>
+      <td>0</td>
+    </tr>
+      <th>HOME</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td><%= @turn.home_runs %></td>
+      <td>0</td>
+    </tr>
+  </table></p>
+  <p>
   <%= image_tag(@base_state_image) %>
     <p><p><a href="/turns/new"><button type="button" class="btn btn-danger btn-lg" aria-pressed="false" autocomplete="off">Next Turn ></button></a>
 </div>
+<h1>Game #<%= @current_game_id %></h1>
   Innning: <%= @turn.inning %></br>
   Global Turn #<%= @turn.id %></br>
   At Bat: <%= @turn.at_bat %></br>
@@ -22,8 +66,5 @@
   <h2>Results</h2>
   Advantage: <%= @turn.advantage %></br>
   Result: <%= @turn.result %></br>
-  Ending Base State: <%= @turn.ending_base_state_id %></br>
-  Outs: <%= @turn.outs %></br>
-  Visitor Runs: <%= @turn.visitor_runs %></br>
-  Home Runs: <%= @turn.home_runs %></br>
+  Ending Base State: <%= @turn.ending_base_state_id %>
 </div>
