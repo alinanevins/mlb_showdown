@@ -9,8 +9,6 @@ class GamesController < ApplicationController
     a.name = game_hash['name']
     a.home_team_user_id = game_hash['home_team_user_id']
     a.visitor_team_user_id = game_hash['visitor_team_user_id']
-    @batter_id = 1
-    @pitcher_id = 1
 
     if a.save
       @current_game_id = a.id
